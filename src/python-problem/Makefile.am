@@ -1,1 +1,1 @@
-SUBDIRS = problem tests doc examples
+SUBDIRS = problem tests examples
