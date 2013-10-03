@@ -22,6 +22,11 @@
 #ifndef RPM_H_
 #define RPM_H_
 
+#include <rpm/rpm46compat.h>
+#include <rpm/rpmio.h>
+#include <rpm/rpmiotypes.h>
+#include <rpm/rpmtypes.h>
+#include <rpm/rpmtag.h>
 #include <rpm/rpmts.h>
 #include <rpm/rpmcli.h>
 #include <rpm/rpmdb.h>

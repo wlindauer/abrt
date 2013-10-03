@@ -62,7 +62,6 @@ void rpm_init()
 void rpm_destroy()
 {
     /* Mirroring the order of deinit calls in rpm-4.11.1/lib/poptALL.c::rpmcliFini() */
-    rpmFreeCrypto();
     rpmFreeMacros(NULL);
     rpmFreeRpmrc();
 
@@ -202,8 +201,7 @@ char* rpm_get_component(const char *filename, const char *rootdir_or_NULL)
         rpmdbFreeIterator(iter);
         rpmtsFree(ts);
         ts = rpmtsCreate();
-        if (rpmtsSetRootDir(ts, rootdir_or_NULL) != 0)
-            goto error1;
+        rpmtsSetRootDir(ts, rootdir_or_NULL);
         filename += len;
         rootdir_or_NULL = NULL;
     }
@@ -221,7 +219,6 @@ char* rpm_get_component(const char *filename, const char *rootdir_or_NULL)
 
  error:
     rpmdbFreeIterator(iter);
- error1:
     rpmtsFree(ts);
     return ret;
 }
@@ -275,8 +272,7 @@ struct pkg_envra *rpm_get_package_nvr(const char *filename, const char *rootdir_
         rpmdbFreeIterator(iter);
         rpmtsFree(ts);
         ts = rpmtsCreate();
-        if (rpmtsSetRootDir(ts, rootdir_or_NULL) != 0)
-            goto error1;
+        rpmtsSetRootDir(ts, rootdir_or_NULL);
         filename += len;
         rootdir_or_NULL = NULL;
     }
@@ -324,7 +320,6 @@ struct pkg_envra *rpm_get_package_nvr(const char *filename, const char *rootdir_
     free_pkg_envra(p);
 
     rpmdbFreeIterator(iter);
- error1:
     rpmtsFree(ts);
     return NULL;
 }

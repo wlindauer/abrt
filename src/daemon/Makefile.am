@@ -94,6 +94,7 @@ abrt_action_save_package_data_CPPFLAGS = \
     -DCONF_DIR=\"$(CONF_DIR)\" \
     $(GLIB_CFLAGS) \
     $(LIBREPORT_CFLAGS) \
+    $(RPM_CFLAGS) \
     -D_GNU_SOURCE
 abrt_action_save_package_data_LDADD = \
     $(RPM_LIBS) \
