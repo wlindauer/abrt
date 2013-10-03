@@ -77,17 +77,16 @@ if __name__ == "__main__":
             for path in dso_paths:
                 ts = rpm.TransactionSet()
                 mi = ts.dbMatch('basenames', path)
-                if len(mi):
-                    for h in mi:
-                        if outname:
-                            outfile = xopen(outname, "w")
-                            outname = None
-                        outfile.write("%s %s (%s) %s\n" %
-                                    (path,
-                                     h[rpm.RPMTAG_NEVRA],
-                                     h[rpm.RPMTAG_VENDOR],
-                                     h[rpm.RPMTAG_INSTALLTIME])
-                                    )
+                for h in mi:
+                    if outname:
+                        outfile = xopen(outname, "w")
+                        outname = None
+                    outfile.write("%s %s (%s) %s\n" %
+                                (path,
+                                 h[rpm.RPMTAG_NAME],
+                                 h[rpm.RPMTAG_VENDOR],
+                                 h[rpm.RPMTAG_INSTALLTIME])
+                                )
 
         except Exception, ex:
             error_msg_and_die("Can't get the DSO list: %s" % ex)
