@@ -333,7 +333,7 @@ static int run_post_create(const char *dirname)
 
  delete_bad_dir:
     log_warning("Deleting problem directory '%s'", dirname);
-    delete_dump_dir(dirname);
+    //delete_dump_dir(dirname);
 
  ret:
     strbuf_free(cmd_output);
