@@ -1,0 +1,160 @@
+:[  359.937872] WDOG1
+:[  359.937897] Backtrace: 
+:[  359.937951] [<c0013c6c>] (dump_backtrace_log_lvl+0x0/0x124) from [<c03ba84c>] (dump_stack+0x24/0x2c)
+:[  359.937963]  r7:00000000 r6:00000001 r5:c052a46c r4:c052a498
+:[  359.938025] [<c03ba828>] (dump_stack+0x0/0x2c) from [<c0022798>] (nmi_timer_interrupt+0x98/0x104)
+:[  359.938049] [<c0022700>] (nmi_timer_interrupt+0x0/0x104) from [<c00206a4>] (gic_nmi_handle_nmi+0x24/0x28)
+:[  359.938060]  r6:00000034 r5:20000193 r4:00000034 r3:c0539f00
+:[  359.938116] [<c0020680>] (gic_nmi_handle_nmi+0x0/0x28) from [<c008678c>] (generic_handle_irq+0x30/0x40)
+:[  359.938145] [<c008675c>] (generic_handle_irq+0x0/0x40) from [<c000fb14>] (handle_IRQ+0x138/0x1f4)
+:[  359.938156]  r4:d3059e78 r3:0000025c
+:[  359.938192] [<c000f9dc>] (handle_IRQ+0x0/0x1f4) from [<c0008784>] (gic_handle_irq+0x4c/0x70)
+:[  359.938212] [<c0008738>] (gic_handle_irq+0x0/0x70) from [<c000e600>] (__irq_svc+0x40/0x70)
+:[  359.938226] Exception stack(0xd3059e78 to 0xd3059ec0)
+:[  359.938242] 9e60:                                                       00000001 00000020
+:[  359.938264] 9e80: 40000013 e1532084 d6ea2200 d6ea231c d6ea2378 00000001 f0000013 20000013
+:[  359.938286] 9ea0: 00000000 d3059f04 d3059ec0 d3059ec0 bf624d1c bf624d1c 60000093 ffffffff
+:[  359.938297]  r6:ffffffff r5:60000013 r4:bf624d1c r3:bf624d1c
+:[  359.938375] [<bf624c48>] (tx_start+0x0/0x2d0 [m2m_glue_gn]) from [<bf624f60>] (mb_irq_gn_tx_start+0x48/0x50 [m2m_glue_gn])
+:[  359.938386]  r9:c052a498 r8:e1532084 r7:d6a747c0 r6:00000001 r5:d6ea231c.r4:d6ea2200
+:[  359.938467] [<bf624f18>] (mb_irq_gn_tx_start+0x0/0x50 [m2m_glue_gn]) from [<bf6252d4>] (glue_hw_mb_irq+0xb0/0xbc [m2m_glue_gn])
+:[  359.938478]  r5:00000000 r4:00000000
+:[  359.938528] [<bf625224>] (glue_hw_mb_irq+0x0/0xbc [m2m_glue_gn]) from [<bf61e680>] (mailbox_irq_handler+0xb0/0xc4 [mailbox])
+:[  359.938539]  r4:00000000 r3:00000000
+:[  359.938582] [<bf61e5d0>] (mailbox_irq_handler+0x0/0xc4 [mailbox]) from [<c0087f14>] (irq_thread+0xf0/0x184)
+:[  359.938606] [<c0087e24>] (irq_thread+0x0/0x184) from [<c004c838>] (kthread+0x9c/0xa8)
+:[  359.938633] [<c004c79c>] (kthread+0x0/0xa8) from [<c002fecc>] (do_exit+0x0/0x7b4)
+:[  359.938645]  r6:c002fecc r5:c004c79c r4:d308bd44
+:[  359.938682] WDOG0
+:[  359.938696] Backtrace: 
+:[  359.938743] [<c0013c6c>] (dump_backtrace_log_lvl+0x0/0x124) from [<c03ba84c>] (dump_stack+0x24/0x2c)
+:[  359.938786] WDOG1
+:[  359.938756]  r7:c0523f38 r6:00000000 r5:c052a46c r4:c052a498
+:[  359.938847] [<c03ba828>] (dump_stack+0x0/0x2c) from [<c0022798>] (nmi_timer_interrupt+0x98/0x104)
+:[  359.938865] [<c0022700>] (nmi_timer_interrupt+0x0/0x104) from [<c00206a4>] (gic_nmi_handle_nmi+0x24/0x28)
+:[  359.938870]  r6:00000034
+:[  359.938876]  r5:20000193
+:[  359.938881]  r4:00000034
+:[  359.938886]  r3:c0539f00
+:[  359.938889] 
+:[  359.938908] [<c0020680>] (gic_nmi_handle_nmi+0x0/0x28) from [<c008678c>] (generic_handle_irq+0x30/0x40)
+:[  359.938931] [<c008675c>] (generic_handle_irq+0x0/0x40) from [<c000fb14>] (handle_IRQ+0x138/0x1f4)
+:[  359.938937]  r4:c0523a58
+:[  359.938941]  r3:0000025c
+:[  359.938945] 
+:[  359.938961] [<c000f9dc>] (handle_IRQ+0x0/0x1f4) from [<c0008784>] (gic_handle_irq+0x4c/0x70)
+:[  359.938976] [<c0008738>] (gic_handle_irq+0x0/0x70) from [<c000e600>] (__irq_svc+0x40/0x70)
+:[  359.938983] Exception stack(0xc0523a58 to 0xc0523aa0)
+:[  359.938995] 3a40:                                                       12ac12ab 80000113
+:[  359.939009] 3a60: 0000ffff 00000001 0012a133 00000000 071ca000 00000000 d6ea231c c0522020
+:[  359.939025] 3a80: c054b378 c0523ad4 c0523aa0 c0523aa0 c0271d84 c0271d70 20000193 ffffffff
+:[  359.939030]  r6:ffffffff
+:[  359.939035]  r5:20000113
+:[  359.939041]  r4:c0271d70
+:[  359.939046]  r3:c0271d84
+:[  359.939049] 
+:[  359.939074] [<c0271c10>] (do_raw_spin_lock+0x0/0x1c0) from [<c03c2fd8>] (_raw_spin_lock_irqsave+0x5c/0x68)
+:[  359.939107] [<c03c2f7c>] (_raw_spin_lock_irqsave+0x0/0x68) from [<bf6247c8>] (m2m_glue_tx_data+0x44/0xd4 [m2m_glue_gn])
+:[  359.939113]  r5:d6ea2244
+:[  359.939117]  r4:d6ea2200
+:[  359.939121] 
+:[  359.939181] [<bf624784>] (m2m_glue_tx_data+0x0/0xd4 [m2m_glue_gn]) from [<bf0ab7fc>] (ampXfer_tx_data+0x68/0x80 [amp_helper])
+:[  359.939187]  r9:d6f27800
+:[  359.939192]  r8:00000060
+:[  359.939197]  r7:00000000
+:[  359.939202]  r6:c0523b48
+:[  359.939207]  r5:00000325
+:[  359.939211] .r4:00000002
+:[  359.939215] 
+:[  359.939253] [<bf0ab794>] (ampXfer_tx_data+0x0/0x80 [amp_helper]) from [<bf0b0814>] (pexnet_tx_skb+0xa0/0xd4 [pexnet])
+:[  359.939259]  r6:c1336500
+:[  359.939263]  r5:00000000
+:[  359.939268]  r4:00000325
+:[  359.939272] 
+:[  359.939305] [<bf0b0774>] (pexnet_tx_skb+0x0/0xd4 [pexnet]) from [<bf0b08ac>] (pexnet_start_xmit+0x64/0xd4 [pexnet])
+:[  359.939311]  r5:d6f27800
+:[  359.939316]  r4:d6f27d24
+:[  359.939320] 
+:[  359.939354] [<bf0b0848>] (pexnet_start_xmit+0x0/0xd4 [pexnet]) from [<c032d9fc>] (dev_hard_start_xmit+0x490/0x750)
+:[  359.939359]  r8:00000060
+:[  359.939364]  r7:00000000
+:[  359.939369]  r6:00000008
+:[  359.939374]  r5:d6f27800
+:[  359.939379]  r4:c1336500
+:[  359.939384] .r3:bf0b0848
+:[  359.939387] 
+:[  359.939410] [<c032d56c>] (dev_hard_start_xmit+0x0/0x750) from [<c0344710>] (sch_direct_xmit+0x7c/0x214)
+:[  359.939428] [<c0344694>] (sch_direct_xmit+0x0/0x214) from [<c032e094>] (dev_queue_xmit+0x3d8/0x674)
+:[  359.939448] [<c032dcbc>] (dev_queue_xmit+0x0/0x674) from [<c0335860>] (neigh_connected_output+0xd4/0xe8)
+:[  359.939471] [<c033578c>] (neigh_connected_output+0x0/0xe8) from [<c03573c8>] (ip_finish_output+0x394/0x3f4)
+:[  359.939478]  r9:c1336500
+:[  359.939484]  r8:00000010
+:[  359.939489]  r7:d682d0c0
+:[  359.939494]  r6:d6f27800
+:[  359.939499]  r5:00000000
+:[  359.939505] .r4:d7b12a00
+:[  359.939509] 
+:[  359.939527] [<c0357034>] (ip_finish_output+0x0/0x3f4) from [<c03589b4>] (ip_output+0xbc/0x118)
+:[  359.939533]  r9:00000000
+:[  359.939538]  r8:d682d0c0
+:[  359.939544]  r7:d6f27800
+:[  359.939549]  r6:c1336500
+:[  359.939555]  r5:00000000
+:[  359.939560] .r4:0000dc18
+:[  359.939564] 
+:[  359.939582] [<c03588f8>] (ip_output+0x0/0x118) from [<c035815c>] (ip_local_out+0x38/0x3c)
+:[  359.939588]  r7:d60bf284
+:[  359.939594]  r6:c1336500
+:[  359.939599]  r5:d7b128ac
+:[  359.939605]  r4:c1336500
+:[  359.939609] 
+:[  359.939626] [<c0358124>] (ip_local_out+0x0/0x3c) from [<c03585d0>] (ip_queue_xmit+0x2b0/0x358)
+:[  359.939632]  r4:d60bf040
+:[  359.939637]  r3:00000000
+:[  359.939641] 
+:[  359.939662] [<c0358320>] (ip_queue_xmit+0x0/0x358) from [<c036e2a4>] (tcp_transmit_skb+0x870/0x8e4)
+:[  359.939679] [<c036da34>] (tcp_transmit_skb+0x0/0x8e4) from [<c036f434>] (tcp_retransmit_skb+0x290/0x5dc)
+:[  359.939697] [<c036f1a4>] (tcp_retransmit_skb+0x0/0x5dc) from [<c0371974>] (tcp_retransmit_timer+0x56c/0x5e4)
+:[  359.939715] [<c0371408>] (tcp_retransmit_timer+0x0/0x5e4) from [<c0371a60>] (tcp_write_timer_handler+0x74/0x16c)
+:[  359.939720]  r7:c0559168
+:[  359.939726]  r6:d60bf070
+:[  359.939731]  r5:d60bf06c
+:[  359.939737]  r4:d60bf040
+:[  359.939741] 
+:[  359.939758] [<c03719ec>] (tcp_write_timer_handler+0x0/0x16c) from [<c0371b94>] (tcp_write_timer+0x3c/0xd8)
+:[  359.939763]  r5:d60bf06c
+:[  359.939769]  r4:d60bf040
+:[  359.939773] 
+:[  359.939796] [<c0371b58>] (tcp_write_timer+0x0/0xd8) from [<c003a978>] (run_timer_softirq+0x298/0x3b0)
+:[  359.939802]  r6:c0522038
+:[  359.939808]  r5:d60bf2d8
+:[  359.939814]  r4:c0560140
+:[  359.939819]  r3:00000000
+:[  359.939823] 
+:[  359.939839] [<c003a6e0>] (run_timer_softirq+0x0/0x3b0) from [<c0032bfc>] (__do_softirq+0x1b8/0x34c)
+:[  359.939854] [<c0032a44>] (__do_softirq+0x0/0x34c) from [<c0033308>] (irq_exit+0x54/0x68)
+:[  359.939872] [<c00332b4>] (irq_exit+0x0/0x68) from [<c000fb48>] (handle_IRQ+0x16c/0x1f4)
+:[  359.939887] [<c000f9dc>] (handle_IRQ+0x0/0x1f4) from [<c0008784>] (gic_handle_irq+0x4c/0x70)
+:[  359.939902] [<c0008738>] (gic_handle_irq+0x0/0x70) from [<c000e600>] (__irq_svc+0x40/0x70)
+:[  359.939909] Exception stack(0xc0523f38 to 0xc0523f80)
+:[  359.939918] 3f20:                                                       00000003 000bf724
+:[  359.939934] 3f40: 000000f0 c000ff48 c052aa54 c0522000 c0522000 c0522000 c050c56c c09ec340
+:[  359.939950] 3f60: 00000000 c0523f9c c0523f68 c0523f80 c000ff88 c00101f8 a0000013 ffffffff
+:[  359.939956]  r6:ffffffff
+:[  359.939961]  r5:a0000013
+:[  359.939967]  r4:c00101f8
+:[  359.939972]  r3:c000ff88
+:[  359.939976] 
+:[  359.940003] [<c0010130>] (cpu_idle+0x0/0x140) from [<c03b1004>] (rest_init+0x7c/0x94)
+:[  359.940009]  r7:ffffffff
+:[  359.940015]  r6:c055a780
+:[  359.940020]  r5:00000000
+:[  359.940025]  r4:00000002
+:[  359.940029] 
+:[  359.940047] [<c03b0f88>] (rest_init+0x0/0x94) from [<c04ec8c0>] (start_kernel+0x328/0x388)
+:[  359.940052]  r4:c052b198
+:[  359.940058]  r3:00000000
+:[  359.940062] 
+:[  359.940090] [<c04ec598>] (start_kernel+0x0/0x388) from [<00008044>] (0x8044)
+:[  359.940208] WDOG0
+
