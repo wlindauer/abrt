@@ -281,7 +281,10 @@ void abrt_oops_save_data_in_dump_dir(struct dump_dir *dd, char *oops, const char
         free(reason_pretty);
     }
     else
-        dd_save_text(dd, FILENAME_REASON, second_line);
+        if (strstr(second_line, "WDOG"))
+            dd_save_text(dd, FILENAME_REASON, "Watchdog");
+        else
+            dd_save_text(dd, FILENAME_REASON, second_line);
 }
 
 int abrt_oops_signaled_sleep(int seconds)
