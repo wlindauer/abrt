@@ -144,6 +144,9 @@ static const char *const s_koops_suspicious_strings[] = {
     "simd exception:",
     "iret exception:",
 
+    /* Lexmarkisms */
+    "WDOG",
+
     /* Termination */
     NULL
 };
@@ -429,6 +432,7 @@ void koops_extract_oopses_from_lines(GList **oops_list, const struct abrt_koops_
              && !strstr(curline, "<EOI>")
              && !strstr(curline, "<NMI>")
              && !strstr(curline, "<<EOE>>")
+             && !strstr(curline, "WDOG") /* Lexmarkism */
              && strncmp(curline, "Code: ", 6) != 0
              && strncmp(curline, "RIP ", 4) != 0
              && strncmp(curline, "RSP ", 4) != 0

@@ -243,7 +243,10 @@ void abrt_oops_save_data_in_dump_dir(struct dump_dir *dd, char *oops, const char
     // TODO: add "Kernel oops: " prefix, so that all oopses have recognizable FILENAME_REASON?
     // kernel oops 1st line may look quite puzzling otherwise...
     strchrnul(second_line, '\n')[0] = '\0';
-    dd_save_text(dd, FILENAME_REASON, second_line);
+    if (strstr(second_line, "WDOG"))
+        dd_save_text(dd, FILENAME_REASON, "Watchdog");
+    else
+        dd_save_text(dd, FILENAME_REASON, second_line);
 }
 
 int abrt_oops_signaled_sleep(int seconds)
