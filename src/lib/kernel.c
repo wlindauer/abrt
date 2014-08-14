@@ -83,6 +83,7 @@ static void record_oops(GList **oops_list, const struct abrt_koops_line_info* li
  */
 static const char *const s_koops_suspicious_strings[] = {
     "BUG:",
+    "Internal error:",
     "WARNING: at",
     "WARNING: CPU:",
     "INFO: possible recursive locking detected",
@@ -262,6 +263,10 @@ void koops_extract_oopses(GList **oops_list, char *buffer, size_t buflen)
         if (c9 == c)
             goto next_line;
 
+        /* makedumpfile dmesg lines start with a colon before the timestamp */
+        if (*c == ':')
+            c++;
+
         /* Is it a syslog file (/var/log/messages or similar)?
          * Even though _usually_ it looks like "Nov 19 12:34:38 localhost kernel: xxx",
          * some users run syslog in non-C locale:
@@ -329,6 +334,7 @@ void koops_extract_oopses_from_lines(GList **oops_list, const struct abrt_koops_
     char prevlevel = 0;
     int oopsstart = -1;
     int inbacktrace = 0;
+    int inexceptionstack = 0;
     regex_t arm_regex;
     int arm_regex_rc = 0;
 
@@ -383,7 +389,8 @@ void koops_extract_oopses_from_lines(GList **oops_list, const struct abrt_koops_
         /* a call trace starts with "Call Trace:" or with the " [<.......>] function+0xFF/0xAA" pattern */
         if (oopsstart >= 0 && !inbacktrace)
         {
-            if (strcasestr(curline, "Call Trace:")) /* yes, it must be case-insensitive */
+            if (strcasestr(curline, "Call Trace:") || /* yes, it must be case-insensitive */
+                strcasestr(curline, "Backtrace:"))
                 inbacktrace = 1;
             else
             /* Fatal MCE's have a few lines of useful information between
@@ -412,6 +419,12 @@ void koops_extract_oopses_from_lines(GList **oops_list, const struct abrt_koops_
         {
             int oopsend = INT_MAX;
 
+            if (inexceptionstack && !strchr(curline, ':')) {
+                inexceptionstack = 0;
+            } else if (strstr(curline, "Exception stack")) {
+                inexceptionstack = 1;
+            }
+
             /* line needs to start with " [" or have "] [" if it is still a call trace */
             /* example: "[<ffffffffa006c156>] radeon_get_ring_head+0x16/0x41 [radeon]" */
             /* example s390: "([<ffffffffa006c156>] 0xdeadbeaf)" */
@@ -430,6 +443,8 @@ void koops_extract_oopses_from_lines(GList **oops_list, const struct abrt_koops_
              && strncmp(curline, "Code: ", 6) != 0
              && strncmp(curline, "RIP ", 4) != 0
              && strncmp(curline, "RSP ", 4) != 0
+             && strncmp(curline, "r", 1) != 0
+             && !inexceptionstack
              /* s390 Call Trace ends with 'Last Breaking-Event-Address:'
               * which is followed by a single frame */
              && strncmp(curline, "Last Breaking-Event-Address:", strlen("Last Breaking-Event-Address:")) != 0
@@ -479,14 +494,14 @@ void koops_extract_oopses_from_lines(GList **oops_list, const struct abrt_koops_
             /* Do we have a suspiciously long oops? Cancel it.
              * Bumped from 60 to 80 (see examples/oops_recursive_locking1.test)
              */
-            if (i - oopsstart > 80)
+            if (i - oopsstart > 200)
             {
                 inbacktrace = 0;
                 oopsstart = -1;
                 log_debug("Dropped oops, too long");
                 continue;
             }
-            if (!inbacktrace && i - oopsstart > 40)
+            if (!inbacktrace && i - oopsstart > 100)
             {
                 /* Used to drop oopses w/o backtraces, but some of them
                  * (MCEs, for example) don't have backtrace yet we still want to file them.
