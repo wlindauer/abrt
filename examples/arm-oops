@@ -1,0 +1,99 @@
+emmc_installed = 0
+# /home/root-> 
+# /home/root-> echo c > /proc/sysrq-trigger 
+SysRq : Trigger a crash
+Internal error: Oops: a07 [#1] PREEMPT SMP ARM
+
+
+Current process: sh   pid=780
+Running on CPU0 (4 online)
+
+current=ecd75480   preempt_count=0x1
+
+regs and stacktrace from uregs: eaa23fb0
+Stacktrace initiated from showRegs()
+Process: sh, pid:780
+stack trace:
+(00) 44feb39c (ra=44f95c48) sp:be8949dc(00) 44feb39c
+(01) 44f95090
+(02) 44f96ce0
+(03) 44f970e8
+(04) 44f97c70
+(05) 44f8e178
+(06) 0006376c
+(07) 0002d130
+(08) 0002f948
+(09) 00030964
+(10) 0001f32c
+(11) 0001d65c
+(12) 44f413f4
+(13) 0001e0cc
+
+Dumping regs from eaa23fb0
+PC:44feb39c  LR:44f95c48  SP:be8949dc  IP:00000000  FP:be894a04
+CPSR: 600f0010
+
+R0:  00000001 000d3408 00000002 00000000 00000002 000d3408
+R6:  45061f40 00000004 00000002 00000000 000b7b68
+
+
+Memory Maps:
+00008-000ac bash
+000b3-000b8 bash
+000b8-000bd
+000c7-000d0 bash
+000d0-000f7
+44ef8-44f17 ld-2
+44f1e-44f20 ld-2
+44f28-45063 libc-2
+45063-45065
+45090-4509b libdl-2
+45230-45255 libtinfo
+b6f66-b6f7a libnss_files-2
+b6f7a-b6f7b
+b6f7e-b6f80
+be875-be895
+Modules linked in: m2m_glue_am(PO) mailbox snd_usb_audio snd_usbmidi_lib snd_rawmidi snd_hwdep snd_pcm hid_generic snd_timer snd soundcore usbhid hid usbkeyboard(PO) evbug wftcp(PO) sg usb_storage vfat msdos fat sd_mod usbhostifc(PO) g_comp neonode(PO) ehci_orion ehci_hcd usbcore mv_udc udc_core pex_ep usb_common orion_wdt spidev lpmCtrl(PO) linuxi2c(PO) history(PO) videomem(PO) pexnet(PO) amp_helper(PO) sfx336(PO) system(PO) util(PO) scannercntl(PO) imgpipe(PO) scanmodule(PO) sscore(PO) afe(PO) lbtrace(PO) ipv6 autofs4 sha256_generic mtdblock mtd_blkdevs lxkmtd dm_verity dm_bufio dm_mod
+CPU: 0 PID: 780 Comm: sh Tainted: P           O  3.15.8-yocto-standard #1
+task: ecd75480 ti: eaa22000 task.ti: eaa22000
+PC is at sysrq_handle_crash+0x40/0x50
+LR is at __handle_sysrq+0xac/0x150
+pc : [<c032ae10>]    lr : [<c032b7fc>]    psr: 600f0093
+sp : eaa23ec8  ip : eaa23ed8  fp : eaa23ed4
+r10: 00000000  r9 : 00000000  r8 : 00000063
+r7 : 600f0013  r6 : 00000001  r5 : c06ce884  r4 : c06e4a04
+r3 : 00000000  r2 : 00000001  r1 : ee3be4fc  r0 : 00000063
+Flags: nZCv  IRQs off  FIQs on  Mode SVC_32  ISA ARM  Segment user
+Control: 30c53c7d  Table: 2c674bc0  DAC: fffffffd
+Process sh (pid: 780, stack limit = 0xeaa22248)
+Stack: (0xeaa23ec8 to 0xeaa24000)
+3ec0:                   eaa23efc eaa23ed8 c032b7fc c032addc 00000002 ed49eec0
+3ee0: 00000000 00000001 00000000 000d3408 eaa23f14 eaa23f00 c032bc48 c032b75c
+3f00: eaa23f78 00000000 eaa23f3c eaa23f18 c015b3d8 c032bc0c eaa23f78 000d3408
+3f20: eaa23f78 ed03cd00 00000002 eaa22000 eaa23f74 eaa23f40 c010e074 c015b364
+3f40: eaa23f5c eaa23f50 c0127b30 00000000 00000000 ed03cd00 ed03cd00 00000002
+3f60: 000d3408 00000000 eaa23fa4 eaa23f78 c010e6b4 c010dfa8 00000000 00000000
+3f80: 00000002 000d3408 45061f40 00000004 c000ece4 eaa22000 00000000 eaa23fa8
+3fa0: c000eac0 c010e674 00000002 000d3408 00000001 000d3408 00000002 00000000
+3fc0: 00000002 000d3408 45061f40 00000004 00000002 00000000 000b7b68 be894a04
+3fe0: 00000000 be8949dc 44f95c48 44feb39c 600f0010 00000001 00000000 00000000
+Backtrace: 
+
+[<c032add0>] (sysrq_handle_crash) from [<c032b7fc>] (__handle_sysrq+0xac/0x150)
+[<c032b750>] (__handle_sysrq) from [<c032bc48>] (write_sysrq_trigger+0x48/0x58)
+ r9:000d3408 r8:00000000 r7:00000001 r6:00000000 r5:ed49eec0 r4:00000002
+[<c032bc00>] (write_sysrq_trigger) from [<c015b3d8>] (proc_reg_write+0x80/0x94)
+ r4:00000000 r3:eaa23f78
+[<c015b358>] (proc_reg_write) from [<c010e074>] (vfs_write+0xd8/0x1c0)
+ r8:eaa22000 r7:00000002 r6:ed03cd00 r5:eaa23f78 r4:000d3408 r3:eaa23f78
+[<c010df9c>] (vfs_write) from [<c010e6b4>] (SyS_write+0x4c/0x8c)
+ r10:00000000 r9:000d3408 r8:00000002 r7:ed03cd00 r6:ed03cd00 r5:00000000
+ r4:00000000
+[<c010e668>] (SyS_write) from [<c000eac0>] (ret_fast_syscall+0x0/0x30)
+ r9:eaa22000 r8:c000ece4 r7:00000004 r6:45061f40 r5:000d3408 r4:00000002
+Code: e1a0c00d e92dd800 e24cb004 e52de004 e8bd4000 e59f302c e3a02001 e5832000 f57ff04e e59f3020 e5933014 e3530000 0a000000 e12fff33 e3a03000 e3a02001 (e5c32000) e89da800 c07004ec c06c4404 e1a0c00d e92dd830 e24cb004 e52de004 e8bd4000 e59f401c e2405030 e59f0018 e3a03007 e1a01005 e5843000 eb067eb8 
+CPU 2 will stop doing anything useful since another CPU has crashed
+CPU 3 will stop doing anything useful since another CPU has crashed
+CPU 1 will stop doing anything useful since another CPU has crashed
+Loading crashdump kernel...
+Bye!
