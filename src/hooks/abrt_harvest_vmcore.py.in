@@ -13,6 +13,7 @@ import shutil
 import time
 import hashlib
 import augeas
+import pwd
 
 import problem
 
@@ -111,13 +112,16 @@ def change_owner_rec(dest):
 
     dest - path to the directory
     """
+    user = pwd.getpwnam("abrt");
+    uid = user.pw_uid;
+    gid = user.pw_gid;
 
-    os.chown(dest, 0, 0)
+    os.chown(dest, uid, gid)
     for root, dirs, files in os.walk(dest):
         for i in dirs:
-            os.chown(os.path.join(root, i), 0, 0)
+            os.chown(os.path.join(root, i), uid, gid)
         for i in files:
-            os.chown(os.path.join(root, i), 0, 0)
+            os.chown(os.path.join(root, i), uid, gid)
 
 
 def change_mode_rec(dest):
