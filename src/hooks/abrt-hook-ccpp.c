@@ -153,13 +153,13 @@ static int user_core_fd = -1;
  * %g - gid
  * %t - UNIX time of dump
  * %e - executable filename
- * %h - hostname
+ * %i - crash thread tid
  * %% - output one "%"
  */
 /* Hook must be installed with exactly the same sequence of %c specifiers.
  * Last one, %h, may be omitted (we can find it out).
  */
-static const char percent_specifiers[] = "%scpugteh";
+static const char percent_specifiers[] = "%scPugteI";
 static char *core_basename = (char*) "core";
 /*
  * Used for error messages only.
@@ -470,9 +470,9 @@ int main(int argc, char** argv)
 
     if (argc < 8)
     {
-        /* percent specifier:         %s   %c              %p  %u  %g  %t   %e          %h */
+        /* percent specifier:         %s   %c              %P  %u  %g  %t   %e          %I */
         /* argv:                  [0] [1]  [2]             [3] [4] [5] [6]  [7]         [8]*/
-        error_msg_and_die("Usage: %s SIGNO CORE_SIZE_LIMIT PID UID GID TIME BINARY_NAME [HOSTNAME]", argv[0]);
+        error_msg_and_die("Usage: %s SIGNO CORE_SIZE_LIMIT PID UID GID TIME BINARY_NAME [TID]", argv[0]);
     }
 
     /* Not needed on 2.6.30.
@@ -535,13 +535,6 @@ int main(int argc, char** argv)
             core_basename = s;
         else
             free(s);
-    }
-
-    struct utsname uts;
-    if (!argv[8]) /* no HOSTNAME? */
-    {
-        uname(&uts);
-        argv[8] = uts.nodename;
     }
 
     char path[PATH_MAX];
@@ -707,6 +700,8 @@ int main(int argc, char** argv)
         dd_save_text(dd, FILENAME_EXECUTABLE, executable);
         dd_save_text(dd, FILENAME_PID, pid_str);
         dd_save_text(dd, FILENAME_PROC_PID_STATUS, proc_pid_status);
+        if(argv[8])
+           dd_save_text(dd, "tid", argv[8]);
         if (user_pwd)
             dd_save_text(dd, FILENAME_PWD, user_pwd);
         if (rootdir)
