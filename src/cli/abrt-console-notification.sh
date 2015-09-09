@@ -1,7 +1,7 @@
 # If shell is not connect to a terminal, return immediately, because this script
 # should print out ABRT's status and it is senseless to continue without
 # terminal.
-tty -s || return 0
+tty -s >"/dev/null" 2>&1 || return 0
 
 # Skip all for noninteractive shells for the same reason as above.
 [ -z "$PS1" ] && return 0
@@ -22,7 +22,7 @@ SINCEFILE="$LPATHDIR/lastnotification"
 
 if [ ! -f "$LPATHDIR" ]; then
     # It might happen that user doesn't have write access on his home.
-    mkdir -p "$LPATHDIR" >"$ABRT_DEBUG_LOG" 2>&1 || return 0
+    mkdir -p "$LPATHDIR" >"$ABRT_DEBUG_LOG" 2>&1
 fi
 
 TMPPATH=`mktemp --tmpdir="$LPATHDIR" lastnotification.XXXXXXXX 2> "$ABRT_DEBUG_LOG"`
@@ -39,6 +39,6 @@ if [ -f "$TMPPATH" ]; then
     mv -f "$TMPPATH" "$SINCEFILE" >"$ABRT_DEBUG_LOG" 2>&1
 fi
 
-timeout 10s abrt-cli status --since="$SINCE" 2>"$ABRT_DEBUG_LOG" || echo "'abrt-cli status' timed out"
+timeout -t 10 abrt-cli status --since="$SINCE" 2>"$ABRT_DEBUG_LOG" || echo "'abrt-cli status' timed out"
 
 unset ABRT_DEBUG_LOG LPATHDIR SINCEFILE TMPPATH SINCE
