@@ -1,7 +1,7 @@
 # If shell is not connect to a terminal, return immediately, because this script
 # should print out ABRT's status and it is senseless to continue without
 # terminal.
-tty -s || return 0
+tty -s >"/dev/null" 2>&1 || return 0
 
 # If $HOME is not set, a non human user is logging in to shell but this script
 # should provide information to human users, therefore returning immediately
@@ -19,7 +19,7 @@ SINCEFILE="$LPATHDIR/lastnotification"
 
 if [ ! -f "$LPATHDIR" ]; then
     # It might happen that user doesn't have write access on his home.
-    mkdir -p "$LPATHDIR" >"$ABRT_DEBUG_LOG" 2>&1 || return 0
+    mkdir -p "$LPATHDIR" >"$ABRT_DEBUG_LOG" 2>&1
 fi
 
 TMPPATH=`mktemp --tmpdir="$LPATHDIR" lastnotification.XXXXXXXX 2> "$ABRT_DEBUG_LOG"`
