@@ -68,29 +68,8 @@ if test -z "$PYTHON3"; then
     exit 1
 fi
 
-AC_PATH_PROG([PYTHON_CONFIG], [python-config], [no])
-[if test "$PYTHON_CONFIG" = "no"]
-[then]
-    [echo "The python-config program was not found in the search path. Please ensure"]
-    [echo "that it is installed and its directory is included in the search path."]
-    [echo "Then run configure again before attempting to build libreport."]
-    [exit 1]
-[fi]
-
-AC_PATH_PROG([PYTHON3_CONFIG], [python3-config], [no])
-[if test "$PYTHON3_CONFIG" = "no"]
-[then]
-    [echo "The python3-config program was not found in the search path. Please ensure"]
-    [echo "that it is installed and its directory is included in the search path."]
-    [echo "Then run configure again before attempting to build libreport."]
-    [exit 1]
-[fi]
-
-PYTHON_CFLAGS=`python-config --cflags 2> /dev/null`
-PYTHON_LIBS=`python-config --libs 2> /dev/null`
-
-PYTHON3_CFLAGS=`python3-config --cflags 2> /dev/null`
-PYTHON3_LIBS=`python3-config --libs 2> /dev/null`
+PKG_CHECK_MODULES([PYTHON], [python])
+PKG_CHECK_MODULES([PYTHON3], [python3])
 
 AC_SUBST([PYTHON3_PREFIX], ['${prefix}'])
 AC_SUBST([PYTHON3_EXEC_PREFIX], ['${exec_prefix}'])
