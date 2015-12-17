@@ -62,15 +62,6 @@ if test -z "$PYTHON"; then
     exit 1
 fi
 
-AC_PATH_PROG([PYTHON_CONFIG], [python-config], [no])
-[if test "$PYTHON_CONFIG" = "no"]
-[then]
-    [echo "The python-config program was not found in the search path. Please ensure"]
-    [echo "that it is installed and its directory is included in the search path."]
-    [echo "Then run configure again before attempting to build ABRT."]
-    [exit 1]
-[fi]
-
 AC_ARG_WITH(python3,
 AS_HELP_STRING([--with-python3],[build Python3 support (default is YES)]),
 ABRT_PARSE_WITH([python3]))
@@ -98,8 +89,7 @@ ABRT_PARSE_WITH([python3]))
         [exit 1]
     [fi]
 
-    PYTHON3_CFLAGS=`python3-config --cflags 2> /dev/null`
-    PYTHON3_LIBS=`python3-config --libs 2> /dev/null`
+    PKG_CHECK_MODULES([PYTHON3], [python3])
 
     AC_SUBST([PYTHON3_PREFIX], ['${prefix}'])
     AC_SUBST([PYTHON3_EXEC_PREFIX], ['${exec_prefix}'])
@@ -157,8 +147,7 @@ ABRT_PARSE_WITH([pythontests]))
     AM_CONDITIONAL(HAVE_PYTHON_NOSE, false)
 [fi]
 
-PYTHON_CFLAGS=`python-config --cflags 2> /dev/null`
-PYTHON_LIBS=`python-config --libs 2> /dev/null`
+PKG_CHECK_MODULES([PYTHON], [python])
 
 AC_SUBST(PYTHON_CFLAGS)
 AC_SUBST(PYTHON_LIBS)
