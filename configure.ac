@@ -74,10 +74,18 @@ PKG_CHECK_MODULES([PYTHON3], [python3])
 AC_SUBST([PYTHON3_PREFIX], ['${prefix}'])
 AC_SUBST([PYTHON3_EXEC_PREFIX], ['${exec_prefix}'])
 
-PYTHON3_DIR=`$PYTHON3 -c "import distutils.sysconfig; \
-    print(distutils.sysconfig.get_python_lib(0,0,prefix='$PYTHON3_PREFIX'))"`
-PYTHON3_EXECDIR=`$PYTHON3 -c "import distutils.sysconfig; \
-    print(distutils.sysconfig.get_python_lib(1,0,prefix='$PYTHON3_EXEC_PREFIX'))"`
+AC_ARG_WITH([python3dir],
+        AS_HELP_STRING([--with-python3dir=DIR], [Directory for python3 site-packages]),
+        [
+            PYTHON3_DIR="$withval"
+            PYTHON3_EXECDIR="$withval"
+        ],
+        [
+            PYTHON3_DIR=`$PYTHON3 -c "import distutils.sysconfig; \
+                print(distutils.sysconfig.get_python_lib(0,0,prefix='$PYTHON3_PREFIX'))"`
+            PYTHON3_EXECDIR=`$PYTHON3 -c "import distutils.sysconfig; \
+                print(distutils.sysconfig.get_python_lib(1,0,prefix='$PYTHON3_EXEC_PREFIX'))"`
+        ])
 
 AC_SUBST(PYTHON_CFLAGS)
 AC_SUBST(PYTHON_LIBS)
