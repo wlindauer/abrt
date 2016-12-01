@@ -1,1 +1,1 @@
-SUBDIRS = include lib hooks daemon plugins cli cli-ng dbus python-problem
+SUBDIRS = include lib hooks daemon plugins cli dbus python-problem
