@@ -165,8 +165,6 @@ PKG_CHECK_MODULES([DBUS], [dbus-1])
 PKG_CHECK_MODULES([LIBXML], [libxml-2.0])
 PKG_CHECK_MODULES([NSS], [nss])
 PKG_CHECK_MODULES([LIBREPORT], [libreport])
-PKG_CHECK_MODULES([POLKIT], [polkit-gobject-1])
-PKG_CHECK_MODULES([POLKIT_AGENT], [polkit-agent-1])
 PKG_CHECK_MODULES([GIO], [gio-2.0])
 PKG_CHECK_MODULES([SATYR], [satyr])
 PKG_CHECK_MODULES([SYSTEMD], [libsystemd])
@@ -389,6 +387,17 @@ ABRT_PARSE_WITH([rpm]))
 [then]
     PKG_CHECK_MODULES([RPM], [rpm])
     AC_DEFINE(HAVE_LIBRPM, [], [Have rpm support.])
+[fi]
+
+AC_ARG_WITH(polkit,
+AS_HELP_STRING([--with-polkit],[build polkit support (default is YES)]),
+ABRT_PARSE_WITH([polkit]))
+
+[if test -z "$NO_POLKIT"]
+[then]
+    PKG_CHECK_MODULES([POLKIT], [polkit-gobject-1])
+    PKG_CHECK_MODULES([POLKIT_AGENT], [polkit-agent-1])
+    AC_DEFINE(HAVE_POLKIT, [], [Have polkit support.])
 [fi]
 
 # Initialize the test suite.
