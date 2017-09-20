@@ -9,10 +9,12 @@ EXAMPLES = \
 	watch_example.py \
 	thread_watch_example.py
 
-example_PYTHON = $(EXAMPLES)
+if BUILD_PYTHON2
+example_DATA = $(EXAMPLES)
 exampledir = $(pythondir)/problem_examples
+endif
 
 if BUILD_PYTHON3
-example3_PYTHON = $(EXAMPLES)
+example3_DATA = $(EXAMPLES)
 example3dir = $(python3dir)/problem_examples
 endif
